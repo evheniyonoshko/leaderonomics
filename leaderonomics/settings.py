@@ -76,16 +76,7 @@ WSGI_APPLICATION = 'leaderonomics.wsgi.application'
 try:
     from settings_local import DATABASES
 except:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'leaderonomics',
-            'USER': 'evo',
-            'PASSWORD': '123123',
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
-        }
-    }
+    print ('You need put DATABASES to settings_local.py')
 
 
 # Password validation
