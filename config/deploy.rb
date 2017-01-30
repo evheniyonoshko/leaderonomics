@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock "3.7.2"
+lock "3.5.0"
 
 # set :application, "leaderonomics"
 set :repo_url, "git@bitbucket.org:appfellas/leaderonomics_backend.git"
@@ -11,7 +11,7 @@ set :repo_url, "git@bitbucket.org:appfellas/leaderonomics_backend.git"
 
 set :django_settings_dir, 'leaderonomics/'
 set :pip_requirements, 'requirements.txt'
-set :keep_releases, 5
+# set :keep_releases, 5
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
 
