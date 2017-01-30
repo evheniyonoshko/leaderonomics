@@ -67,4 +67,8 @@ set :wsgi_file, 'wsgi.py'
 set :stage, :staging
 set :django_settings, 'settings'
 set :shared_virtualenv, true
+set :python_version, '3.5.2'
+set :project_apps, [
+    'ad_folders',
+]
 server 'bender.appfellas.com', user: 'web', roles: %w{app web}, port: 2282
