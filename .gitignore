@@ -2,3 +2,5 @@
 .python-version
 *settings_local.py
 *.pyc
+*settings.py
+log/*
