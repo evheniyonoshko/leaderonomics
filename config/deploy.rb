@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock "3.5.0"
+lock "3.7.2"
 
 # set :application, "leaderonomics"
 set :repo_url, "git@bitbucket.org:appfellas/leaderonomics_backend.git"
