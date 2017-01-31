@@ -78,7 +78,3 @@ set :project_apps, [
     'leaderonomics',
 ]
 server 'bender.appfellas.com', user: 'web', roles: %w{app web}, port: 2282
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
