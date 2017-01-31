@@ -66,9 +66,19 @@ set :deploy_to, "/home/web/web/leaderonomics"
 set :wsgi_file, 'wsgi.py'
 set :stage, :staging
 set :django_settings, 'settings'
+set :shared_django_settings, true
 set :shared_virtualenv, true
 set :python_version, '3.5.2'
+set :django_settings, 'settings.py'
+set :nginx, true
+set :branch, 'develop'
+set :uwsgi_settings, 'uwsgi.ini'
+
 set :project_apps, [
     'leaderonomics',
 ]
 server 'bender.appfellas.com', user: 'web', roles: %w{app web}, port: 2282
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes

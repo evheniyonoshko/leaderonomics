@@ -2,5 +2,9 @@
 .python-version
 *settings_local.py
 *.pyc
+<<<<<<< Updated upstream
 *settings.py
 log/*
+=======
+*/settings.py
+>>>>>>> Stashed changes

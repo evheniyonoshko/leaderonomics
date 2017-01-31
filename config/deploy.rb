@@ -11,6 +11,8 @@ set :repo_url, "git@bitbucket.org:appfellas/leaderonomics_backend.git"
 
 set :django_settings_dir, 'leaderonomics/'
 set :pip_requirements, 'requirements.txt'
+set :application, 'leaderonomics'
+set :app_server, 'uwsgi'
 # set :keep_releases, 5
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh

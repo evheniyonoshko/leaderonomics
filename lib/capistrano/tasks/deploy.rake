@@ -93,6 +93,7 @@ namespace :django do
   desc "Setup Django environment"
   task :setup do
     if fetch(:shared_django_settings)
+      puts 'Shared'
       invoke 'django:link_settings'
     end
     
