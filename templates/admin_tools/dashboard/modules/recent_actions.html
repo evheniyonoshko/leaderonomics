@@ -1,0 +1,16 @@
+{% extends "admin_tools/dashboard/module.html" %}
+
+{% block module_content %}
+<ul>
+    {% spaceless %}
+    {% for child in module.children %}
+    <li class="{% cycle 'odd' 'even' %}">
+        <span class="float-right">{{ child.action_time|date }}</span>
+        <span class="{% if child.is_deletion %}deletelink{% endif %}{% if child.is_addition %} addlink{% endif %}{% if child.is_change %} changelink{% endif %}">
+            {% if child.content_type %}{% filter capfirst %}{{ child.content_type.name }}{% endfilter %}&nbsp;{% endif %}{{ child.object_repr }}
+        </span>
+    </li>
+    {% endfor %}
+    {% endspaceless %}
+</ul>
+{% endblock %}

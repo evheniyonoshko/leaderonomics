@@ -1,0 +1,53 @@
+.result-header {
+  text-align: center;
+}
+.info-list {
+  margin-top: 20px;
+  list-style: none;
+}
+
+.navbar {
+  margin-top: 10px;
+}
+
+.navbar-right {
+  margin-right: inherit;
+}
+
+.row.spacer {
+  margin-top: 20px;
+}
+
+.row.spacer-small {
+  margin-top: 10px;
+}
+
+//.searchfield {
+//  margin-top: 3px;
+//}
+
+.search-history {
+  .panel-heading {
+    height: 34px;
+    padding-top: 7px;
+  }
+  tr {
+    cursor: pointer;
+  }
+  .blank-history {
+    text-align: center;
+  }
+}
+
+.language-selector {
+  display: inline-block;
+  margin-right: 10px;
+  .language-flag {
+    height: 13px;
+    cursor: pointer;
+  }
+}
+
+.select2-container, span.select2-selection, .select2-selection__arrow {
+  height: 34px !important;
+}

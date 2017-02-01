@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "../../../home/jekanchik/projects/adfolder/static/css/scss/login.css",
+	"sources": [
+		"../../../home/jekanchik/projects/adfolder/static/css/scss/login.scss"
+	],
+	"mappings": "AAAA,AAAA,YAAY,CAAC;EACX,UAAU,EAAE,GAAI,GACjB;;AAGD,AAAI,IAAA,AAAA,OAAO,CAAC;EACV,UAAU,EAAE,IAAK,GAClB;;AAED,AAAA,kBAAkB,CAAC;EACjB,KAAK,EAAE,IAAK,GACb;;AAED,AAAA,UAAU,CAAC;EACT,UAAU,EAAE,IAAK;EACjB,KAAK,EAAE,GAAI,GACZ",
+	"names": []
+}
