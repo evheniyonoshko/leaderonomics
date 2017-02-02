@@ -5,3 +5,4 @@
 *settings.py
 log/*
 */migrations/*.py
+media/*

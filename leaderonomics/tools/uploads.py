@@ -17,3 +17,9 @@ def generate_uuid_file_path(filename):
 
 def get_avatar_upload_path(instance, filename):
     return 'users/avatars/{}'.format(generate_uuid_file_path(filename))
+
+def get_video_upload_path(instance, filename):
+    return 'videos/{}'.format(generate_uuid_file_path(filename))
+
+def get_podcast_upload_path(instance, filename):
+    return 'podcast/{}'.format(generate_uuid_file_path(filename))

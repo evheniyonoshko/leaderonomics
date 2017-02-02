@@ -10,7 +10,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from sorl.thumbnail.admin import AdminImageMixin
 
 from leaderonomics.forms import UserAdminForm
-from leaderonomics.models import User
+from leaderonomics.models import *
 
 
 def download_csv(modeladmin, request, queryset):
@@ -77,4 +77,29 @@ class UserAdmin(AdminImageMixin, BaseUserAdmin):
             'js/js.cookie.js',
         )
 
+
+class ArticlesAdmin(admin.ModelAdmin):
+    list_per_page = 30
+    list_display = ('title', 'text')
+    search_fields = ('title', )
+    fields = ('title', 'text')
+
+
+class VideosAdmin(admin.ModelAdmin):
+    list_per_page = 30
+    list_display = ('title', 'description')
+    search_fields = ('title', )
+    fields = ('title', 'description', 'file')
+
+
+class PodcastsAdmin(admin.ModelAdmin):
+    list_per_page = 30
+    list_display = ('title',)
+    search_fields = ('title', )
+    fields = ('title', 'file')
+
+
 admin.site.register(User, UserAdmin)
+admin.site.register(Articles, ArticlesAdmin)
+admin.site.register(Videos, VideosAdmin)
+admin.site.register(Podcasts, PodcastsAdmin)

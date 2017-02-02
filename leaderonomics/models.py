@@ -85,3 +85,27 @@ class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+
+class Articles(models.Model):
+    title = models.CharField(max_length=100, blank=True, null=True)
+    text = models.TextField(blank=True, null=True)
+
+
+class Videos(models.Model):
+    title = models.CharField(max_length=100, blank=True, null=True)
+    description = models.CharField(max_length=256, blank=True, null=True)
+    file = models.FileField(
+        upload_to=uploads.get_video_upload_path,
+        blank=True,
+        null=True
+    )
+
+
+class Podcasts(models.Model):
+    title = models.CharField(max_length=100, blank=True, null=True)
+    file = models.FileField(
+        upload_to=uploads.get_podcast_upload_path,
+        blank=True,
+        null=True
+    )
