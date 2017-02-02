@@ -8,11 +8,6 @@ from django.conf.urls.static import static
 
 __author__ = 'Yevhenii Onoshko'
 
-custom_views = ([
-    url(r'^save_csv$', admin_views.save_csv, name='save_csv'),
-], 'custom')
-
 urlpatterns = [
     url(r'', include(admin.site.urls)),
-    url(r'^custom/', include(custom_views))
 ]
