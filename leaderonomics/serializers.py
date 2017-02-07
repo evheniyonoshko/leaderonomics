@@ -22,3 +22,32 @@ class AuthenticatedArticlesSerializer(ArticlesSerializer):
     class Meta:
         model = Articles
         read_only_fields = ('id', 'title', 'text')
+
+
+class VideosSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Videos
+        exclude = ('id',)
+        read_only_fields = ('title', 'description', 'file')
+
+
+class AuthenticatedVideosSerializer(ArticlesSerializer):
+    class Meta:
+        model = Videos
+        read_only_fields = ('id', 'title', 'description', 'file')
+
+
+class PodcastsSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Podcasts
+        exclude = ('id',)
+        read_only_fields = ('title', 'file')
+
+
+class AuthenticatedPodcastsSerializer(ArticlesSerializer):
+    class Meta:
+        model = Podcasts
+        read_only_fields = ('id', 'title', 'file')
+

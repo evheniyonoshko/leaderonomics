@@ -15,6 +15,10 @@ urlpatterns = [
 urlpatterns += [
     url(r'^api/articles/$', ArticlesList.as_view()),
     url(r'^api/articles/(?P<pk>[0-9]+)/$', ArticlesDetail.as_view()),
+    url(r'^api/videos/$', VideosList.as_view()),
+    url(r'^api/videos/(?P<pk>[0-9]+)/$', VideosDetail.as_view()),
+    url(r'^api/podcasts/$', PodcastsList.as_view()),
+    url(r'^api/podcasts/(?P<pk>[0-9]+)/$', PodcastsDetail.as_view()),
     # url(r'^api/users/$', views.UserList.as_view()),
     # url(r'^api/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
 ]
