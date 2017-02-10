@@ -19,11 +19,13 @@ urlpatterns += [
     url(r'^api/videos/(?P<pk>[0-9]+)/$', VideosDetail.as_view()),
     url(r'^api/podcasts/$', PodcastsList.as_view()),
     url(r'^api/podcasts/(?P<pk>[0-9]+)/$', PodcastsDetail.as_view()),
+    url(r'^accounts/profile/(?P<pk>[0-9]+)/$', Profile.as_view()),
     # url(r'^api/users/$', views.UserList.as_view()),
     # url(r'^api/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
 ]
 
 urlpatterns += [
-    url(r'^api-token-auth/', include('rest_framework.urls',
-                             namespace='rest_framework')),
+    url(r'^api-auth/', include('rest_framework.urls',
+                       namespace='rest_framework')),
+    url(r'^api-auth/singin/', Singin.as_view(), name='singin'),
 ]

@@ -60,7 +60,7 @@
 #     # password: "please use keys"
 #   }
 
-
+set :use_pyenv, false
 set :nginx, true
 set :deploy_to, "/home/web/web/leaderonomics"
 set :wsgi_file, 'wsgi.py'
@@ -75,6 +75,6 @@ set :branch, 'develop'
 set :uwsgi_settings, 'uwsgi.ini'
 
 set :project_apps, [
-    'leaderonomics',
+    'leaderonomics'
 ]
 server 'bender.appfellas.com', user: 'web', roles: %w{app web}, port: 2282

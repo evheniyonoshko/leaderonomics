@@ -1,0 +1,81 @@
+{% extends "rest_framework/base.html" %}
+{% load staticfiles %}
+{% load rest_framework %}
+
+{% block body %}
+<body class="container">
+  <div class="container-fluid" style="margin-top: 30px">
+    <div class="row-fluid">
+      <div class="well" style="width: 320px; margin-left: auto; margin-right: auto">
+        <div class="row-fluid">
+          <div>
+            {% block branding %}<h3 style="margin: 0 0 20px;">Sing up</h3>{% endblock %}
+          </div>
+        </div><!-- /row fluid -->
+
+        <div class="row-fluid">
+          <div>
+            <form action="{% url 'singin' %}" enctype="multipart/form-data" role="form" method="post">
+              {% csrf_token %}
+
+              <div id="div_id_email" class="clearfix control-group {% if form.email.errors %}error{% endif %}">
+                <div class="form-group">
+                  <label for="id_email">Email:</label>
+                  {{ form.email }}
+                </div>
+              </div>
+              <div id="div_id_password" class="clearfix control-group {% if form.password.errors %}error{% endif %}">
+                <div class="form-group">
+                  <label for="id_password">Password:</label>
+                  {{ form.password }}
+                </div>
+              </div>
+              <div id="div_id_username" class="clearfix control-group {% if form.username.errors %}error{% endif %}">
+                <div class="form-group">
+                  <label for="id_username">Username:</label>
+                  {{ form.username }}
+                </div>
+              </div>
+              <div id="div_id_birth" class="clearfix control-group {% if form.birth.errors %}error{% endif %}">
+                <div class="form-group">
+                  <label for="id_birth">Day of birth:</label>
+                  {{ form.birth }}
+                </div>
+              </div>
+              <div id="div_id_avatar" class="clearfix control-group {% if form.avatar.errors %}error{% endif %}">
+                <div class="form-group">
+                  <label for="id_avatar">Avatar:</label>
+                  {{ form.avatar }}
+                </div>
+              </div>
+              <div id="div_id_is_alumni" class="clearfix control-group {% if form.is_alumni.errors %}error{% endif %}">
+                <div class="form-group">
+                  <label for="id_is_alumni">Is alumni: </label>
+                  {{ form.is_alumni }}
+                </div>
+              </div>
+              <!--{% if form.errors %}
+                  {% for field in form %}
+                      {% for error in field.errors %}
+                          <div class="alert alert-danger">
+                              <strong>{{ error|escape }}</strong>
+                          </div>
+                      {% endfor %}
+                  {% endfor %}
+                  {% for error in form.non_field_errors %}
+                      <div class="alert alert-danger">
+                          <strong>{{ error|escape }}</strong>
+                      </div>
+                  {% endfor %}-->
+              {% endif %}
+              <div class="form-actions-no-box">
+                <input type="submit" name="submit" value="Sing in" class="btn btn-primary form-control" id="submit-id-submit">
+              </div>
+            </form>
+          </div>
+        </div><!-- /.row-fluid -->
+      </div><!--/.well-->
+    </div><!-- /.row-fluid -->
+  </div><!-- /.container-fluid -->
+</body>
+{% endblock %}

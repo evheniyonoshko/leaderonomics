@@ -10,6 +10,13 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'leaderonomics')
 
 
+class AuthenticatedProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'email', 'avatar')
+        read_only_fields = ('id',)
+
+
 class ArticlesSerializer(serializers.ModelSerializer):
 
     class Meta:
