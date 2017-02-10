@@ -28,8 +28,13 @@ class UserManager(auth_models.BaseUserManager):
         )
         user.set_password(password)
         user.save(using=self._db)
-        user.profile.birth = kwargs['birth'] or None,
-        user.profile.is_alumni = kwargs['is_alumni'],
+        prof = UserProfile(user=user,
+                           is_alumni=kwargs['is_alumni'],
+                           birth=kwargs['birth'] or None)
+        prof.save(using=self._db)
+        user.profile = prof
+        user.save(using=self._db)
+
         return user
 
     def create_superuser(self, email, password):
@@ -97,6 +102,7 @@ class UserProfile(models.Model):
         User,
         on_delete=models.CASCADE,
         primary_key=True,
+        related_name = 'profile'
     )
     birth = models.DateField(blank=True, null=True)
     is_alumni = models.BooleanField(default=False)
