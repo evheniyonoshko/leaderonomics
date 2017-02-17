@@ -53,7 +53,8 @@ class UserAdmin(AdminImageMixin, BaseUserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2')
+            'fields': ('email', 'password1', 'password2', 'username',
+                       'first_name', 'last_name', 'birth', 'is_alumni', 'avatar')
         }),
         ('Permissions', {
             'fields': ('user_permissions', 'groups',

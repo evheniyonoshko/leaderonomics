@@ -54,7 +54,7 @@
                   {{ form.is_alumni }}
                 </div>
               </div>
-              <!--{% if form.errors %}
+              {% if form.errors %}
                   {% for field in form %}
                       {% for error in field.errors %}
                           <div class="alert alert-danger">
@@ -66,7 +66,7 @@
                       <div class="alert alert-danger">
                           <strong>{{ error|escape }}</strong>
                       </div>
-                  {% endfor %}-->
+                  {% endfor %}
               {% endif %}
               <div class="form-actions-no-box">
                 <input type="submit" name="submit" value="Sing in" class="btn btn-primary form-control" id="submit-id-submit">

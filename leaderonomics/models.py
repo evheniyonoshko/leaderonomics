@@ -25,16 +25,11 @@ class UserManager(auth_models.BaseUserManager):
             avatar = kwargs['avatar'],
             is_active = True,
             is_staff = True,
+            is_alumni = kwargs['is_alumni'],
+            birth = kwargs['birth']
         )
         user.set_password(password)
         user.save(using=self._db)
-        prof = UserProfile(user=user,
-                           is_alumni=kwargs['is_alumni'],
-                           birth=kwargs['birth'] or None)
-        prof.save(using=self._db)
-        user.profile = prof
-        user.save(using=self._db)
-
         return user
 
     def create_superuser(self, email, password):
@@ -61,6 +56,8 @@ class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
     avatar = models.ImageField(upload_to=uploads.get_avatar_upload_path,
                                blank=True, null=True)
     avatar_url = models.URLField(default='http://www.gravatar.com/avatar/?d=mm&s=200')
+    birth = models.DateField(blank=True, null=True)
+    is_alumni = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
     is_staff = models.BooleanField(default=False)
@@ -95,17 +92,6 @@ class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        primary_key=True,
-        related_name = 'profile'
-    )
-    birth = models.DateField(blank=True, null=True)
-    is_alumni = models.BooleanField(default=False)
 
 
 class Articles(models.Model):

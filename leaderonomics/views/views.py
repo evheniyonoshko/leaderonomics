@@ -60,11 +60,10 @@ class Singin(FormView):
         return self.form_invalid(singin_form)
 
 
-class Profile(generics.RetrieveUpdateAPIView):
+class Profiles(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = AuthenticatedProfileSerializer
-    permission_classes = (permissions.IsAuthenticated,
-                          IsOwnerOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
 
 class ArticlesList(generics.ListAPIView):
@@ -81,8 +80,7 @@ class ArticlesList(generics.ListAPIView):
 
 class ArticlesDetail(generics.RetrieveAPIView):
     queryset = Articles.objects.all()
-    permission_classes = (permissions.IsAuthenticated,
-                          IsOwnerOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly,)
     
     def get_serializer_class(self):
         if self.request.user and self.request.user.is_authenticated():
@@ -105,8 +103,7 @@ class VideosList(generics.ListAPIView):
 
 class VideosDetail(generics.RetrieveAPIView):
     queryset = Videos.objects.all()
-    permission_classes = (permissions.IsAuthenticated,
-                          IsOwnerOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly,)
     
     def get_serializer_class(self):
         if self.request.user and self.request.user.is_authenticated():
@@ -134,5 +131,4 @@ class PodcastsDetail(generics.RetrieveAPIView):
         return serializer_class
 
     queryset = Podcasts.objects.all()
-    permission_classes = (permissions.IsAuthenticated,
-                          IsOwnerOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly,)

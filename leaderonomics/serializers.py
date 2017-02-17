@@ -13,7 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
 class AuthenticatedProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'avatar')
+        fields = ('id', 'username', 'email', 'avatar', 'birth', 'is_alumni')
         read_only_fields = ('id',)
 
 
