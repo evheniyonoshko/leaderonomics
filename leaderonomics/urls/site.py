@@ -7,6 +7,9 @@ from django.contrib.auth import views as auth_views
 from leaderonomics.views.views import *
 from rest_framework.authtoken.views import obtain_auth_token
 
+
+
+
 urlpatterns = [
     url(r'^admin/', include('leaderonomics.urls.admin')),
     url(r'^admin_tools/', include('admin_tools.urls')),
@@ -26,4 +29,8 @@ urlpatterns += [
     url(r'^api-auth/', include('rest_framework.urls',
                                 namespace='rest_framework')),
     url(r'^api-auth/singin/', Singin.as_view(), name='singin'),
+]
+
+urlpatterns += [
+    url(r'^accounts/change_password/', my_password_change, name='change_password'),
 ]

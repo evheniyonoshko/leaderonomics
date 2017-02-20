@@ -1,4 +1,6 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.views import password_change
+from django.contrib.auth import forms as auth_forms, login as auth_login
 from django.shortcuts import get_object_or_404, render, resolve_url
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
@@ -13,6 +15,13 @@ from leaderonomics.permissions import IsOwnerOrReadOnly
 from leaderonomics.models import Articles, User
 from leaderonomics.serializers import *
 from leaderonomics.forms import UserForm
+
+
+def my_password_change(request):
+    ''' Change pasword method '''
+    return password_change(request,
+                           post_change_redirect=request.path,
+                           template_name='rest_framework/change_password.html')
 
 
 class Singin(FormView):
