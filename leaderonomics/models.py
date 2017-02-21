@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.core.validators import RegexValidator
 from django.contrib.auth import models as auth_models
 from sorl.thumbnail import ImageField
 from leaderonomics.tools import uploads
+from lib import country_list
+
 
 __author__ = 'Yevhenii Onoshko'
 
+COUNTRY = list(country_list.generate_country_list())
+SEX = [('Male', 'Male'), ('Female', 'Female')]
 
 class UserManager(auth_models.BaseUserManager):
     """
@@ -25,10 +30,12 @@ class UserManager(auth_models.BaseUserManager):
             avatar = kwargs['avatar'],
             is_active = True,
             is_staff = True,
-            is_alumni = kwargs['is_alumni'],
-            birth = kwargs['birth']
         )
         user.set_password(password)
+        user.save(using=self._db)
+        profile = Profile.objects.create(birth=kwargs['birth'], is_alumni=kwargs['is_alumni'])
+        profile.save(using=self._db)
+        user.profile = profile
         user.save(using=self._db)
         return user
 
@@ -40,6 +47,16 @@ class UserManager(auth_models.BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
+
+
+class Profile(models.Model):
+    birth = models.DateField(blank=True, null=True)
+    is_alumni = models.BooleanField(default=False)
+    country = models.CharField(choices=COUNTRY, default='NL', max_length=256)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    phone_number = models.CharField(validators=[phone_regex], max_length=13, blank=True, null=True)
+    sex = models.CharField(choices=SEX, max_length=100, blank=True, null=True)
+    address = models.CharField(max_length=100, blank=True, null=True)
 
 
 class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
@@ -55,9 +72,9 @@ class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
     last_name = models.CharField(max_length=128, blank=True)
     avatar = models.ImageField(upload_to=uploads.get_avatar_upload_path,
                                blank=True, null=True)
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, blank=True, null=True)
     avatar_url = models.URLField(default='http://www.gravatar.com/avatar/?d=mm&s=200')
-    birth = models.DateField(blank=True, null=True)
-    is_alumni = models.BooleanField(default=False)
+
     is_active = models.BooleanField(default=False)
 
     is_staff = models.BooleanField(default=False)
