@@ -13,7 +13,7 @@ class ProfileSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ('id', 'birth', 'is_alumni', 'country', 'phone_number', 'sex', 'address')
+        fields = ('birth', 'country', 'phone_number', 'sex', 'address', 'is_alumni')
 
 class AuthenticatedProfileSerializer(serializers.HyperlinkedModelSerializer):
     profile = ProfileSerializer(many=False, read_only=False)
@@ -42,41 +42,41 @@ class AuthenticatedProfileSerializer(serializers.HyperlinkedModelSerializer):
 class ArticlesSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Articles
+        model = Article
         exclude = ('id',)
         read_only_fields = ('title', 'text')
 
 
 class AuthenticatedArticlesSerializer(ArticlesSerializer):
     class Meta:
-        model = Articles
+        model = Article
         read_only_fields = ('id', 'title', 'text')
 
 
 class VideosSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Videos
+        model = Video
         exclude = ('id',)
         read_only_fields = ('title', 'description', 'file')
 
 
 class AuthenticatedVideosSerializer(ArticlesSerializer):
     class Meta:
-        model = Videos
+        model = Video
         read_only_fields = ('id', 'title', 'description', 'file')
 
 
 class PodcastsSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Podcasts
+        model = Podcast
         exclude = ('id',)
         read_only_fields = ('title', 'file')
 
 
 class AuthenticatedPodcastsSerializer(ArticlesSerializer):
     class Meta:
-        model = Podcasts
+        model = Podcast
         read_only_fields = ('id', 'title', 'file')
 

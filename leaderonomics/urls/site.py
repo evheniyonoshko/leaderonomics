@@ -22,7 +22,7 @@ urlpatterns += [
     url(r'^api/videos/(?P<pk>[0-9]+)/$', VideosDetail.as_view()),
     url(r'^api/podcasts/$', PodcastsList.as_view()),
     url(r'^api/podcasts/(?P<pk>[0-9]+)/$', PodcastsDetail.as_view()),
-    url(r'^user/profile/(?P<pk>[0-9]+)/$', Profiles.as_view()),
+    url(r'^user/profile/(?P<pk>[0-9]+)/$', Profile.as_view()),
 ]
 
 urlpatterns += [

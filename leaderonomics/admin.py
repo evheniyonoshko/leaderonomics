@@ -79,21 +79,21 @@ class UserAdmin(AdminImageMixin, BaseUserAdmin):
         )
 
 
-class ArticlesAdmin(admin.ModelAdmin):
+class ArticleAdmin(admin.ModelAdmin):
     list_per_page = 30
     list_display = ('title', 'text')
     search_fields = ('title', )
     fields = ('title', 'text')
 
 
-class VideosAdmin(admin.ModelAdmin):
+class VideoAdmin(admin.ModelAdmin):
     list_per_page = 30
     list_display = ('title', 'description')
     search_fields = ('title', )
     fields = ('title', 'description', 'file')
 
 
-class PodcastsAdmin(admin.ModelAdmin):
+class PodcastAdmin(admin.ModelAdmin):
     list_per_page = 30
     list_display = ('title',)
     search_fields = ('title', )
@@ -101,6 +101,6 @@ class PodcastsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User, UserAdmin)
-admin.site.register(Articles, ArticlesAdmin)
-admin.site.register(Videos, VideosAdmin)
-admin.site.register(Podcasts, PodcastsAdmin)
+admin.site.register(Article, ArticleAdmin)
+admin.site.register(Video, VideoAdmin)
+admin.site.register(Podcast, PodcastAdmin)

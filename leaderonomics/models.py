@@ -111,12 +111,12 @@ class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
         return True
 
 
-class Articles(models.Model):
+class Article(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     text = models.TextField(blank=True, null=True)
 
 
-class Videos(models.Model):
+class Video(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     description = models.CharField(max_length=256, blank=True, null=True)
     file = models.FileField(
@@ -126,7 +126,7 @@ class Videos(models.Model):
     )
 
 
-class Podcasts(models.Model):
+class Podcast(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
     file = models.FileField(
         upload_to=uploads.get_podcast_upload_path,

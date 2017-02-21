@@ -1,4 +1,5 @@
-from django.contrib.auth.models import User
+# -*- coding: utf-8 -*-
+
 from django.contrib.auth.views import password_change
 from django.contrib.auth import forms as auth_forms, login as auth_login
 from django.shortcuts import get_object_or_404, render, resolve_url
@@ -6,13 +7,12 @@ from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
 from django.core.exceptions import ObjectDoesNotExist
 from django import forms
-from rest_framework import generics, permissions, status
-from rest_framework.views import APIView
+from rest_framework import generics, permissions
 from rest_framework.response import Response
 
 from leaderonomics import settings
 from leaderonomics.permissions import IsOwnerOrReadOnly
-from leaderonomics.models import Articles, User
+from leaderonomics.models import Article, User
 from leaderonomics.serializers import *
 from leaderonomics.forms import UserForm
 
@@ -69,14 +69,15 @@ class Singin(FormView):
         return self.form_invalid(singin_form)
 
 
-class Profiles(generics.RetrieveUpdateAPIView):
+class Profile(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = AuthenticatedProfileSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
 
+
 class ArticlesList(generics.ListAPIView):
-    queryset = Articles.objects.all()
+    queryset = Article.objects.all()
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_serializer_class(self):
@@ -88,7 +89,7 @@ class ArticlesList(generics.ListAPIView):
 
 
 class ArticlesDetail(generics.RetrieveAPIView):
-    queryset = Articles.objects.all()
+    queryset = Article.objects.all()
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly,)
     
     def get_serializer_class(self):
@@ -99,7 +100,7 @@ class ArticlesDetail(generics.RetrieveAPIView):
 
 
 class VideosList(generics.ListAPIView):
-    queryset = Videos.objects.all()
+    queryset = Video.objects.all()
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_serializer_class(self):
@@ -111,7 +112,7 @@ class VideosList(generics.ListAPIView):
 
 
 class VideosDetail(generics.RetrieveAPIView):
-    queryset = Videos.objects.all()
+    queryset = Video.objects.all()
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly,)
     
     def get_serializer_class(self):
@@ -122,7 +123,7 @@ class VideosDetail(generics.RetrieveAPIView):
 
 
 class PodcastsList(generics.ListAPIView):
-    queryset = Podcasts.objects.all()
+    queryset = Podcast.objects.all()
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get_serializer_class(self):
@@ -139,5 +140,5 @@ class PodcastsDetail(generics.RetrieveAPIView):
             serializer_class = AuthenticatedPodcastsSerializer
         return serializer_class
 
-    queryset = Podcasts.objects.all()
+    queryset = Podcast.objects.all()
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly,)
