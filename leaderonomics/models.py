@@ -3,7 +3,9 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth import models as auth_models
+from django.contrib.postgres.fields import ArrayField
 from sorl.thumbnail import ImageField
+
 from leaderonomics.tools import uploads
 from lib import country_list
 
@@ -112,8 +114,15 @@ class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
 
 
 class Article(models.Model):
+    image = models.ImageField(upload_to=uploads.get_article_upload_path,
+                              blank=True, null=True)
     title = models.CharField(max_length=100, blank=True, null=True)
     text = models.TextField(blank=True, null=True)
+    text_highlights = models.TextField(blank=True, null=True)
+    tags = ArrayField(models.CharField(max_length=200), blank=True, default=list)
+
+    def __str__(self):  # __unicode__ on Python 2
+        return self.title
 
 
 class Video(models.Model):
@@ -125,6 +134,9 @@ class Video(models.Model):
         null=True
     )
 
+    def __str__(self):  # __unicode__ on Python 2
+        return self.title
+
 
 class Podcast(models.Model):
     title = models.CharField(max_length=100, blank=True, null=True)
@@ -133,3 +145,6 @@ class Podcast(models.Model):
         blank=True,
         null=True
     )
+
+    def __str__(self):  # __unicode__ on Python 2
+        return self.title

@@ -81,9 +81,9 @@ class UserAdmin(AdminImageMixin, BaseUserAdmin):
 
 class ArticleAdmin(admin.ModelAdmin):
     list_per_page = 30
-    list_display = ('title', 'text')
+    list_display = ('title', 'text', 'image', 'text_highlights', 'tags')
     search_fields = ('title', )
-    fields = ('title', 'text')
+    fields = ('title', 'text', 'image', 'text_highlights', 'tags')
 
 
 class VideoAdmin(admin.ModelAdmin):
