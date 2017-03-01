@@ -8,6 +8,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from sorl.thumbnail.admin import AdminImageMixin
+from solo.admin import SingletonModelAdmin
 
 from leaderonomics.forms import UserAdminForm
 from leaderonomics.models import *
@@ -101,6 +102,7 @@ class PodcastAdmin(admin.ModelAdmin):
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(SiteSettings, SingletonModelAdmin)
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Video, VideoAdmin)
 admin.site.register(Podcast, PodcastAdmin)

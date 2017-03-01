@@ -29,3 +29,26 @@ class UserForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email', 'username', 'password', 'avatar')
+
+class LoginForm(forms.Form):
+    """
+    Login form
+    """
+    email = forms.EmailField(
+        label='E-Mail',
+        max_length=128,
+        widget=forms.TextInput(attrs={'placeholder': 'tinyperson@gmail'})
+    )
+    password = forms.CharField(
+        label='password',
+        max_length=128,
+        widget=forms.PasswordInput(attrs={'placeholder': 'password'})
+    )
+
+class AllauthLoginForm(LoginForm):
+    """
+    Customized form for use with allauth
+    """
+    def __init__(self, *args, **kwargs):
+        super(AllauthLoginForm, self).__init__()
+        self.fields['login'] = self.fields['email']

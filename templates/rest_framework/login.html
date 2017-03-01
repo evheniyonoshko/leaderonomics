@@ -1,6 +1,7 @@
 {% extends "rest_framework/base.html" %}
 {% load staticfiles %}
 {% load rest_framework %}
+{% load account socialaccount %}
 
 {% block body %}
 <body class="container">
@@ -15,6 +16,9 @@
 
         <div class="row-fluid">
           <div>
+            <button class="invite facebook" data-dismiss="modal" onclick="window.location.href='{% url 'social_login' 'facebook'%}?next={{ request.path }}'">
+                <span></span>Login with Facebook
+            </button>
             <form action="{% url 'rest_framework:login' %}" role="form" method="post">{% csrf_token %}
 
               <input type="hidden" name="next" value="{{ next }}" />

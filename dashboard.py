@@ -29,6 +29,16 @@ class CustomIndexDashboard(Dashboard):
         ))
         # append a recent actions module
         self.children.append(modules.RecentActions(_('Recent Actions'), 5))
+        self.children.append(modules.ModelList(
+            ' Administration',
+            column=3,
+            collapsible=False,
+            models=('django.contrib.*',
+                    # 'allauth.socialaccount.models.SocialApp',
+                    'leaderonomics.models.SiteSettings',
+                    ),
+            exclude=('django.contrib.auth.models.Group',)
+        ))
 
 
 class CustomAppIndexDashboard(AppIndexDashboard):

@@ -5,6 +5,7 @@ from django.core.validators import RegexValidator
 from django.contrib.auth import models as auth_models
 from django.contrib.postgres.fields import ArrayField
 from sorl.thumbnail import ImageField
+from solo.models import SingletonModel
 
 from leaderonomics.tools import uploads
 from lib import country_list
@@ -111,6 +112,42 @@ class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+
+class SocialAccount(models.Model):
+    provider = models.CharField(max_length=64)
+    uid = models.CharField(max_length=256)
+    user = models.ForeignKey(User, related_name='social_accounts', null=True, blank=True)
+
+    def __unicode__(self):
+        return "{provider} - {uid}".format(provider=self.provider, uid=self.uid)
+
+    class Meta:
+        unique_together = ('provider', 'uid')
+
+
+class SiteSettings(SingletonModel):
+    """
+    Singleton model for global settings storage.
+    """
+
+    # Facebook settings
+    # Actually 16
+    facebook_app_id = models.CharField(max_length=128, null=True, blank=True)
+    # Actually 32
+    facebook_app_secret = models.CharField(max_length=128, null=True, blank=True)
+
+    # Social Links
+    facebook_social_link = models.CharField(max_length=256, blank=True, null=True)
+    contact_email = models.CharField(max_length=256, blank=True, null=True)
+
+    printer_email = models.EmailField(blank=True, null=True)
+
+    def __unicode__(self):
+        return u'Site configuration'
+
+    class Meta:
+        verbose_name = "Site Settings"
 
 
 class Article(models.Model):

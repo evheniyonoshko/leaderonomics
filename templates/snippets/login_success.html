@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row" style="margin-top: 25px">
+        <div class="col-lg-2 col-md-2 col-md-offset-5 col-lg-offset-5">
+            <p>Welcome {{ request.user.email }}</p>
+        </div>
+    </div>
+{% endblock %}

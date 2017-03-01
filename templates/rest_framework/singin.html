@@ -11,6 +11,9 @@
           <div>
             {% block branding %}<h3 style="margin: 0 0 20px;">Sing up</h3>{% endblock %}
           </div>
+          <button class="invite facebook" data-dismiss="modal" onclick="window.location.href='{% url 'social_login' 'facebook'%}'">
+            <span></span>Sign up with Facebook
+          </button>
         </div><!-- /row fluid -->
 
         <div class="row-fluid">
