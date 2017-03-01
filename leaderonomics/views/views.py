@@ -78,7 +78,7 @@ def social_login_callback(request, provider):
     """
     os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
     config = SOCIAL_CONFIG[provider]
-    import ipdb; ipdb.set_trace()
+    # import ipdb; ipdb.set_trace()
     session = OAuth2Session(config['client_id'],
                             state=request.session.pop('oauth_state'),
                             redirect_uri=reverse('social_callback', args=(provider, )))

@@ -70,7 +70,6 @@ set :shared_django_settings, true
 set :shared_virtualenv, true
 set :python_version, '3.5.2'
 set :django_settings, 'settings.py'
-set :nginx, true
 set :branch, 'develop'
 set :uwsgi_settings, 'uwsgi.ini'
 
