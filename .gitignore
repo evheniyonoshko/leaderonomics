@@ -4,5 +4,6 @@
 *.pyc
 *settings.py
 log/*
+*/migrations/*.py
 media/*
 .vscode/
