@@ -184,7 +184,7 @@ def social_login_final(request):
                 send_mail(
                     email_subject,
                     email_body,
-                    SiteSettings.objects.get().contact_email,
+                    # SiteSettings.objects.get().contact_email,
                     (user.email, )
                 )
         print(user.social_accounts.all())
