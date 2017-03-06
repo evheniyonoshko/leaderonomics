@@ -20,33 +20,41 @@ class UserManager(auth_models.BaseUserManager):
     """
     Custom User Manager. Needed for Django auth to work with custom User model
     """
-    def create_user(self, email, password, **kwargs):
+    def create_user(self, user_type='user', email, password, **kwargs):
         """
         Creates and saves User
         """
         if not email:
             raise ValueError('Users must have an email address')
-
-        user = self.model(
-            email=UserManager.normalize_email(email),
-            username = kwargs['username'] or None,
-            avatar = kwargs['avatar'],
-            is_active = True,
-            is_staff = True,
-        )
-        user.set_password(password)
-        user.save(using=self._db)
-        profile = Profile.objects.create(birth=kwargs['birth'], is_alumni=kwargs['is_alumni'])
-        profile.save(using=self._db)
-        user.profile = profile
+        if user_type == 'super':
+            user = self.model(
+                email=UserManager.normalize_email(email),
+                is_active = True,
+                is_staff = True,
+            )
+            user.save(using=self._db)
+        else:
+            user = self.model(
+                email=UserManager.normalize_email(email),
+                username = kwargs['username'] or None,
+                avatar = kwargs['avatar'],
+                is_active = True,
+                is_staff = True,
+            )
+            user.set_password(password)
+            user.save(using=self._db)
+            profile = Profile.objects.create(birth=kwargs['birth'], is_alumni=kwargs['is_alumni'])
+            profile.save(using=self._db)
+            user.profile = profile
         user.save(using=self._db)
         return user
+
 
     def create_superuser(self, email, password):
         """
         Creates and saves superuser
         """
-        user = self.create_user(email, password=password)
+        user = self.create_user(email, user_type='super', password=password)
         user.is_superuser = True
         user.save(using=self._db)
         return user
@@ -75,7 +83,7 @@ class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
     last_name = models.CharField(max_length=128, blank=True)
     avatar = models.ImageField(upload_to=uploads.get_avatar_upload_path,
                                blank=True, null=True)
-    # profile = models.OneToOneField(Profile, on_delete=models.CASCADE, blank=True, null=True)
+    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, blank=True, null=True)
     avatar_url = models.URLField(default='http://www.gravatar.com/avatar/?d=mm&s=200')
 
     is_active = models.BooleanField(default=False)
