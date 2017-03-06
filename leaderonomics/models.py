@@ -20,7 +20,7 @@ class UserManager(auth_models.BaseUserManager):
     """
     Custom User Manager. Needed for Django auth to work with custom User model
     """
-    def create_user(self, user_type='user', email, password, **kwargs):
+    def create_user(self, user_type, email, password, **kwargs):
         """
         Creates and saves User
         """
@@ -54,7 +54,7 @@ class UserManager(auth_models.BaseUserManager):
         """
         Creates and saves superuser
         """
-        user = self.create_user(email, user_type='super', password=password)
+        user = self.create_user(email=email, user_type='super', password=password)
         user.is_superuser = True
         user.save(using=self._db)
         return user

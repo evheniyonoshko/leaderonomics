@@ -25,7 +25,7 @@ namespace :deploy do
           if shared_dir_list.include? 'uwsgi.pid'
             execute uwsgi, '--stop', pid_file
           end
-          execute "for KILLPID in `ps wx | grep 'uwsgi' | awk ' { print $1;}'`; do kill -9 $KILLPID; done"
+          execute "for KILLPID in `ps wx | grep 'uwsgi' | grep '#{fetch(:application)}' | awk ' { print $1;}'`; do kill -9 $KILLPID; done"
           execute uwsgi, '--ini', "#{release_path}/uwsgi.ini"
         end
         if fetch(:app_server) == 'gunicorn'
