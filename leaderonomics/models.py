@@ -20,13 +20,13 @@ class UserManager(auth_models.BaseUserManager):
     """
     Custom User Manager. Needed for Django auth to work with custom User model
     """
-    def create_user(self, user_type=None , email, password, **kwargs):
+    def create_user(self, email, password, is_super=False, **kwargs):
         """
         Creates and saves User
         """
         if not email:
             raise ValueError('Users must have an email address')
-        if user_type:
+        if is_super:
             user = self.model(
                 email=UserManager.normalize_email(email),
                 is_active = True,
@@ -41,12 +41,12 @@ class UserManager(auth_models.BaseUserManager):
                 is_active = True,
                 is_staff = True,
             )
-            user.set_password(password)
-            user.save(using=self._db)
             profile = Profile.objects.create(birth=kwargs['birth'], is_alumni=kwargs['is_alumni'])
             profile.save(using=self._db)
             user.profile = profile
             user.save(using=self._db)
+        user.set_password(password)
+        user.save(using=self._db)
         return user
 
 
@@ -54,7 +54,7 @@ class UserManager(auth_models.BaseUserManager):
         """
         Creates and saves superuser
         """
-        user = self.create_user(email=email, password=password, user_type='super')
+        user = self.create_user(email=email, password=password, is_super=True )
         user.is_superuser = True
         user.save(using=self._db)
         return user
