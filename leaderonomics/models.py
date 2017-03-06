@@ -29,8 +29,6 @@ class UserManager(auth_models.BaseUserManager):
         if is_super:
             user = self.model(
                 email=UserManager.normalize_email(email),
-                is_active = True,
-                is_staff = True,
             )
             user.save(using=self._db)
         else:
@@ -56,6 +54,8 @@ class UserManager(auth_models.BaseUserManager):
         """
         user = self.create_user(email=email, password=password, is_super=True )
         user.is_superuser = True
+        user.is_staff = True
+        user.is_active = True
         user.save(using=self._db)
         return user
 
