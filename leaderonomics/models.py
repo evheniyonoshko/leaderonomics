@@ -75,7 +75,7 @@ class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
     last_name = models.CharField(max_length=128, blank=True)
     avatar = models.ImageField(upload_to=uploads.get_avatar_upload_path,
                                blank=True, null=True)
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, blank=True, null=True)
+    # profile = models.OneToOneField(Profile, on_delete=models.CASCADE, blank=True, null=True)
     avatar_url = models.URLField(default='http://www.gravatar.com/avatar/?d=mm&s=200')
 
     is_active = models.BooleanField(default=False)
