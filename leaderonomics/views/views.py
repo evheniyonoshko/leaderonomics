@@ -181,12 +181,12 @@ def social_login_final(request):
                         'password': new_password
                     }
                 )
-                send_mail(
-                    email_subject,
-                    email_body,
-                    # SiteSettings.objects.get().contact_email,
-                    (user.email, )
-                )
+                # send_mail(
+                #     email_subject,
+                #     email_body,
+                #     SiteSettings.objects.get().contact_email,
+                #     (user.email, )
+                # )
         print(user.social_accounts.all())
 
         user.backend = 'django.contrib.auth.backends.ModelBackend'
