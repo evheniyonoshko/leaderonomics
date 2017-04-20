@@ -35,7 +35,6 @@ class CustomIndexDashboard(Dashboard):
             collapsible=False,
             models=('django.contrib.*',
                     # 'allauth.socialaccount.models.SocialApp',
-                    'leaderonomics.models.SiteSettings',
                     ),
             exclude=('django.contrib.auth.models.Group',)
         ))

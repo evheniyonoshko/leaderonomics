@@ -23,13 +23,23 @@ class AuthenticatedProfileSerializer(serializers.HyperlinkedModelSerializer):
         instance.email = validated_data.get('email', instance.email)
         if validated_data.get('avatar'):
             instance.avatar = validated_data.get('avatar')
-        instance.profile.birth = dict(validated_data.get('profile'))['birth'] or instance.profile.country
-        instance.profile.is_alumni = dict(validated_data.get('profile'))['is_alumni'] or instance.profile.country
-        instance.profile.country = dict(validated_data.get('profile'))['country'] or instance.profile.country
-        instance.profile.phone_number = dict(validated_data.get('profile'))['phone_number'] or instance.profile.phone_number
-        instance.profile.sex = dict(validated_data.get('profile'))['sex'] or instance.profile.sex
-        instance.profile.address = dict(validated_data.get('profile'))['address'] or instance.profile.address
-        instance.profile.save()
+        if instance.profile_id:
+            instance.profile.birth = dict(validated_data.get('profile'))['birth'] or instance.profile.birth or None
+            instance.profile.is_alumni = dict(validated_data.get('profile'))['is_alumni'] or instance.profile.is_alumni or None
+            instance.profile.country = dict(validated_data.get('profile'))['country'] or instance.profile.country or None
+            instance.profile.phone_number = dict(validated_data.get('profile'))['phone_number'] or instance.profile.phone_number or None
+            instance.profile.sex = dict(validated_data.get('profile'))['sex'] or instance.profile.sex or None
+            instance.profile.address = dict(validated_data.get('profile'))['address'] or instance.profile.address or None
+            instance.profile.save()
+            instance.save()
+        else:
+            profile = Profile.objects.create(birth=dict(validated_data.get('profile'))['birth'] or None,
+                                             is_alumni=dict(validated_data.get('profile'))['is_alumni'] or None,
+                                             country=dict(validated_data.get('profile'))['country'] or None,
+                                             phone_number=dict(validated_data.get('profile'))['phone_number'] or None,
+                                             sex=dict(validated_data.get('profile'))['sex'] or None,
+                                             address=dict(validated_data.get('profile'))['address'] or None)
+        instance.profile = profile
         instance.save()
         return instance
 
