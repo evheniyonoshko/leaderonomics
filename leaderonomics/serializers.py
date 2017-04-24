@@ -15,3 +15,16 @@ class AuthenticatedUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email', 'first_name', 'last_name', 'passport_number', 'balance')
         read_only_fields = ('id', 'balance')
+
+
+class PendingMenegersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'first_name', 'last_name', 'balance', 'is_active')
+        read_only_fields = ('id', 'email', 'first_name', 'last_name', 'balance',)
+
+class CloseAccountsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'first_name', 'last_name', 'balance', 'is_closed')
+        read_only_fields = ('id', 'email', 'first_name', 'last_name', 'balance',)

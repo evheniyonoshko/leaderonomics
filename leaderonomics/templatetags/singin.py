@@ -56,7 +56,7 @@ def optional_logout(request, user):
         <ul class="dropdown-menu">
             <li><a href='{href}?next={next}'>Log out</a></li>
             <li><a href='{href_change_password}?next={next}'> Change Password </a></li>
-            <li><a href='{href_account_delete}?next={next}'> Delete Account </a></li>
+            <li><a href='{href_account_delete}?next={next}'> Close Account </a></li>
         </ul>
     </li>"""
     snippet = format_html(snippet, user=escape(user), href=logout_url, next=escape(request.path), 

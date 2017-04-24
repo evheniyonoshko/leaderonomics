@@ -10,7 +10,8 @@ from rest_framework import generics, permissions
 from leaderonomics.settings import SINGIN_REDIRECT_URL
 from leaderonomics.models import User
 from leaderonomics.permissions import IsOwnerOrReadOnly
-from leaderonomics.serializers import UserSerializer, AuthenticatedUserSerializer
+from leaderonomics.serializers import PendingMenegersSerializer, CloseAccountsSerializer, \
+                                      UserSerializer, AuthenticatedUserSerializer
 from leaderonomics.forms import UserForm
 
 
@@ -21,7 +22,7 @@ def base(request):
     :param request: django.http.request.HttpRequest
     :return: django.http.response.HttpResponse
     """
-    return redirect('/api/v1/accounts/client/profile/')
+    return redirect('/api/v1.0/accounts/client/profile/')
 
 def my_password_change(request):
     ''' Change pasword method '''
@@ -35,7 +36,7 @@ def account_delete(request):
     user.is_active = False
     user.is_closed = True
     user.save()
-    return redirect('/api/v1/accounts/client/profile/')
+    return redirect('/api/v1.0/accounts/client/profile/')
 
 
 
@@ -85,3 +86,38 @@ class UserView(generics.ListAPIView):
 
     def get_queryset(self):
         return User.objects.filter(id=int(self.request.user.id))
+
+
+class PendingMenegersView(generics.ListAPIView):
+    serializer_class = PendingMenegersSerializer
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
+
+    def get_queryset(self):
+        return User.objects.filter(is_active=False, is_closed=False)
+
+class PendingMenegersDatailView(generics.RetrieveUpdateAPIView):
+     queryset = User.objects.filter(is_active=False, is_closed=False)
+     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
+     
+     def get_serializer_class(self):
+        if self.request.user and self.request.user.is_authenticated():
+            serializer_class = PendingMenegersSerializer
+            return serializer_class
+
+
+class CloseAccountView(generics.ListAPIView):
+    serializer_class = CloseAccountsSerializer
+    permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
+
+    def get_queryset(self):
+        return User.objects.filter(is_closed=True)
+
+class CloseAccountDatailView(generics.RetrieveDestroyAPIView):
+     queryset = User.objects.filter(is_closed=True)
+     permission_classes = permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
+     
+     def get_serializer_class(self):
+        if self.request.user and self.request.user.is_authenticated():
+            serializer_class = CloseAccountsSerializer
+            return serializer_class
+

@@ -19,7 +19,11 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    url(r'^api/v1/accounts/client/profile/$', UserView.as_view()),
-    url(r'^api/v1/accounts/client/change_password/', my_password_change, name='change_password'),
-    url(r'^api/v1/accounts/client/delete/', account_delete, name='account_delete'),
+    url(r'^api/v1.0/accounts/pending/$', PendingMenegersView.as_view()),
+    url(r'^api/v1.0/accounts/pending/(?P<pk>[0-9]+)/$', PendingMenegersDatailView.as_view()),
+    url(r'^api/v1.0/accounts/closed/$', CloseAccountView.as_view()),
+    url(r'^api/v1.0/accounts/closed/(?P<pk>[0-9]+)/$', CloseAccountDatailView.as_view()),
+    url(r'^api/v1.0/accounts/client/profile/$', UserView.as_view()),
+    url(r'^api/v1.0/accounts/client/change_password/', my_password_change, name='change_password'),
+    url(r'^api/v1.0/accounts/client/delete/', account_delete, name='account_delete'),
 ]
