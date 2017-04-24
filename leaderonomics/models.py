@@ -34,14 +34,10 @@ class UserManager(auth_models.BaseUserManager):
         else:
             user = self.model(
                 email=UserManager.normalize_email(email),
-                username = kwargs['username'] or None,
-                avatar = kwargs['avatar'],
-                is_active = True,
-                is_staff = True,
+                first_name = kwargs['first_name'] or None,
+                last_name = kwargs['last_name'] or None,
+                passport_number = kwargs['passport_number'] or None,
             )
-            profile = Profile.objects.create(birth=kwargs['birth'], is_alumni=kwargs['is_alumni'])
-            profile.save(using=self._db)
-            user.profile = profile
             user.save(using=self._db)
         user.set_password(password)
         user.save(using=self._db)
@@ -60,16 +56,6 @@ class UserManager(auth_models.BaseUserManager):
         return user
 
 
-class Profile(models.Model):
-    birth = models.DateField(blank=True, null=True)
-    is_alumni = models.BooleanField(default=False)
-    country = models.CharField(choices=COUNTRY, default='NL', max_length=256)
-    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-    phone_number = models.CharField(validators=[phone_regex], max_length=13, blank=True, null=True)
-    sex = models.CharField(choices=SEX, max_length=100, blank=True, null=True)
-    address = models.CharField(max_length=100, blank=True, null=True)
-
-
 class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
     """
     Custom User Model. Use email as username.
@@ -81,14 +67,11 @@ class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
     username = models.CharField(max_length=128, blank=True, null=True)
     first_name = models.CharField(max_length=128, blank=True)
     last_name = models.CharField(max_length=128, blank=True)
-    avatar = models.ImageField(upload_to=uploads.get_avatar_upload_path,
-                               blank=True, null=True)
-    profile = models.OneToOneField(Profile, on_delete=models.CASCADE, blank=True, null=True)
-    avatar_url = models.URLField(default='http://www.gravatar.com/avatar/?d=mm&s=200')
-
+    passport_number = models.CharField(max_length=8, blank=True)
+    balance = models.FloatField(default=0.00)
     is_active = models.BooleanField(default=False)
-
     is_staff = models.BooleanField(default=False)
+    is_closed = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
 
@@ -100,14 +83,10 @@ class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
     def get_short_name(self):
         return self.get_full_name()
 
-    # def __unicode__(self):
-    #     return self.get_full_name()
 
     def __str__(self):
         return self.get_full_name()
 
-    # def has_perm(self, perm, obj=None):
-    #     return True
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
@@ -120,40 +99,3 @@ class User(auth_models.PermissionsMixin, auth_models.AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-
-
-class Article(models.Model):
-    image = models.ImageField(upload_to=uploads.get_article_upload_path,
-                              blank=True, null=True)
-    title = models.CharField(max_length=100, blank=True, null=True)
-    text = models.TextField(blank=True, null=True)
-    text_highlights = models.TextField(blank=True, null=True)
-    tags = ArrayField(models.CharField(max_length=200), blank=True, default=list)
-
-    def __str__(self):  # __unicode__ on Python 2
-        return self.title
-
-
-class Video(models.Model):
-    title = models.CharField(max_length=100, blank=True, null=True)
-    description = models.CharField(max_length=256, blank=True, null=True)
-    file = models.FileField(
-        upload_to=uploads.get_video_upload_path,
-        blank=True,
-        null=True
-    )
-
-    def __str__(self):  # __unicode__ on Python 2
-        return self.title
-
-
-class Podcast(models.Model):
-    title = models.CharField(max_length=100, blank=True, null=True)
-    file = models.FileField(
-        upload_to=uploads.get_podcast_upload_path,
-        blank=True,
-        null=True
-    )
-
-    def __str__(self):  # __unicode__ on Python 2
-        return self.title

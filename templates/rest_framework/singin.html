@@ -21,53 +21,38 @@
               <div id="div_id_email" class="clearfix control-group {% if form.email.errors %}error{% endif %}">
                 <div class="form-group">
                   <label for="id_email">Email:</label>
+                  {% if form.email.errors %}<ul class="errorlist">{{ form.email.errors }}</ul>{% endif %}
                   {{ form.email }}
                 </div>
               </div>
               <div id="div_id_password" class="clearfix control-group {% if form.password.errors %}error{% endif %}">
                 <div class="form-group">
                   <label for="id_password">Password:</label>
+                  {% if form.password.errors %}<ul class="errorlist">{{ form.password.errors }}</ul>{% endif %}
                   {{ form.password }}
                 </div>
               </div>
-              <div id="div_id_username" class="clearfix control-group {% if form.username.errors %}error{% endif %}">
+              <div id="div_id_first_name" class="clearfix control-group {% if form.first_name.errors %}error{% endif %}">
                 <div class="form-group">
-                  <label for="id_username">Username:</label>
-                  {{ form.username }}
+                  <label for="id_first_name">First Name:</label>
+                  {% if form.first_name.errors %}<ul class="errorlist">{{ form.first_name.errors }}</ul>{% endif %}
+                  {{ form.first_name }}
                 </div>
               </div>
-              <div id="div_id_birth" class="clearfix control-group {% if form.birth.errors %}error{% endif %}">
+              <div id="div_id_last_name" class="clearfix control-group {% if form.last_name.errors %}error{% endif %}">
                 <div class="form-group">
-                  <label for="id_birth">Day of birth:</label>
-                  {{ form.birth }}
+                  <label for="id_last_name">Last Name:</label>
+                  {% if form.last_name.errors %}<ul class="errorlist">{{ form.last_name.errors }}</ul>{% endif %}
+                  {{ form.last_name }}
                 </div>
               </div>
-              <div id="div_id_avatar" class="clearfix control-group {% if form.avatar.errors %}error{% endif %}">
+              <div id="div_id_passport_number" class="clearfix control-group {% if form.passport_number.errors %}error{% endif %}">
                 <div class="form-group">
-                  <label for="id_avatar">Avatar:</label>
-                  {{ form.avatar }}
+                  <label for="id_passport_number">Passport Number:</label>
+                  {% if form.passport_number.errors %}<ul class="errorlist">{{ form.passport_number.errors }}</ul>{% endif %}
+                  {{ form.passport_number }}
                 </div>
               </div>
-              <div id="div_id_is_alumni" class="clearfix control-group {% if form.is_alumni.errors %}error{% endif %}">
-                <div class="form-group">
-                  <label for="id_is_alumni">Is alumni: </label>
-                  {{ form.is_alumni }}
-                </div>
-              </div>
-              {% if form.errors %}
-                  {% for field in form %}
-                      {% for error in field.errors %}
-                          <div class="alert alert-danger">
-                              <strong>{{ error|escape }}</strong>
-                          </div>
-                      {% endfor %}
-                  {% endfor %}
-                  {% for error in form.non_field_errors %}
-                      <div class="alert alert-danger">
-                          <strong>{{ error|escape }}</strong>
-                      </div>
-                  {% endfor %}
-              {% endif %}
               <div class="form-actions-no-box">
                 <input type="submit" name="submit" value="Sing in" class="btn btn-primary form-control" id="submit-id-submit">
               </div>

@@ -16,19 +16,22 @@ class UserAdminForm(forms.ModelForm):
 
     class Meta:
         model = User
-        exclude = ('last_login', 'password', 'avatar_url')
+        exclude = ('last_login', 'password')
+
 
 class UserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-        super(self.__class__, self).__init__(*args, **kwargs)
-        year_choices = (year for year in range(1940, datetime.date.today().year + 1))
-        self.fields['birth'].widget = forms.SelectDateWidget(years=year_choices)
-    birth = forms.DateField(required=False)
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['passport_number'].required = True
+
     password = forms.CharField(max_length=32, widget=forms.PasswordInput)
-    is_alumni = forms.BooleanField(required=False)
+
     class Meta:
         model = User
-        fields = ('email', 'username', 'password', 'avatar')
+        fields = ('id', 'first_name', 'last_name', 'passport_number', 'email', 'password')
+
 
 class LoginForm(forms.Form):
     """
@@ -45,10 +48,3 @@ class LoginForm(forms.Form):
         widget=forms.PasswordInput(attrs={'placeholder': 'password'})
     )
 
-class AllauthLoginForm(LoginForm):
-    """
-    Customized form for use with allauth
-    """
-    def __init__(self, *args, **kwargs):
-        super(AllauthLoginForm, self).__init__()
-        self.fields['login'] = self.fields['email']

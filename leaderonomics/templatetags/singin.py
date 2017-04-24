@@ -43,6 +43,7 @@ def optional_logout(request, user):
     try:
         logout_url = reverse('rest_framework:logout')
         change_password = reverse('change_password')
+        account_delete = reverse('account_delete')
     except NoReverseMatch:
         snippet = format_html('<li class="navbar-text">{user}</li>', user=escape(user))
         return mark_safe(snippet)
@@ -55,9 +56,10 @@ def optional_logout(request, user):
         <ul class="dropdown-menu">
             <li><a href='{href}?next={next}'>Log out</a></li>
             <li><a href='{href_change_password}?next={next}'> Change Password </a></li>
+            <li><a href='{href_account_delete}?next={next}'> Delete Account </a></li>
         </ul>
     </li>"""
     snippet = format_html(snippet, user=escape(user), href=logout_url, next=escape(request.path), 
-    href_change_password=change_password)
+    href_change_password=change_password, href_account_delete=account_delete)
 
     return mark_safe(snippet)

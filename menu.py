@@ -23,9 +23,6 @@ class CustomMenu(Menu):
         Menu.__init__(self, **kwargs)
         self.children += [
             items.MenuItem(_('Dashboard'), reverse('admin:index')),
-            items.MenuItem(_('Article'), reverse('admin:leaderonomics_article_changelist')),
-            items.MenuItem(_('Video'), reverse('admin:leaderonomics_video_changelist')),
-            items.MenuItem(_('Podcast'), reverse('admin:leaderonomics_podcast_changelist')),
 
         ]
         self.children += [

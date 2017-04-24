@@ -1,7 +1,6 @@
 {% extends "rest_framework/base.html" %}
 {% load staticfiles %}
 {% load rest_framework %}
-{% load account socialaccount %}
 
 {% block body %}
 <body class="container">
@@ -18,7 +17,7 @@
           <div>
             <form action="{% url 'rest_framework:login' %}" role="form" method="post">{% csrf_token %}
 
-              <input type="hidden" name="next" value="{{ next }}" />
+              <!--<input type="hidden" name="next" value="{{ next }}" />-->
 
               <div id="div_id_username" class="clearfix control-group {% if form.username.errors %}error{% endif %}">
                 <div class="form-group">

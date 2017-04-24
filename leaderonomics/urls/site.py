@@ -9,6 +9,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 
 urlpatterns = [
+    url(r'^$', base),
     url(r'^admin/', include('leaderonomics.urls.admin')),
     url(r'^admin_tools/', include('admin_tools.urls')),
     url(r'^api-auth/', include('rest_framework.urls',
@@ -18,15 +19,7 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    url(r'^api/articles/$', ArticlesList.as_view()),
-    url(r'^api/articles/(?P<pk>[0-9]+)/$', ArticlesDetail.as_view()),
-    url(r'^api/videos/$', VideosList.as_view()),
-    url(r'^api/videos/(?P<pk>[0-9]+)/$', VideosDetail.as_view()),
-    url(r'^api/podcasts/$', PodcastsList.as_view()),
-    url(r'^api/podcasts/(?P<pk>[0-9]+)/$', PodcastsDetail.as_view()),
-    url(r'^user/profile/(?P<pk>[0-9]+)/$', Profile.as_view()),
-]
-
-urlpatterns += [
-    url(r'^accounts/change_password/', my_password_change, name='change_password'),
+    url(r'^api/v1/accounts/client/profile/$', UserView.as_view()),
+    url(r'^api/v1/accounts/client/change_password/', my_password_change, name='change_password'),
+    url(r'^api/v1/accounts/client/delete/', account_delete, name='account_delete'),
 ]
