@@ -1,0 +1,24 @@
+1. 
+For singin, you need POST singin data(email, password, first_name, last_name, passport_number)
+to url http://localhost:8000/api-auth/singin/
+2. 
+For login, you need POST singin data(email, password)
+to url http://localhost:8000/api-auth/login/
+3. 
+For logout, you need GET http://localhost:8000/api-auth/logout/
+4. 
+Menegers can get all pending clients, GET http://localhost:8000/api/v1.0/accounts/pending/
+5. 
+Menegers can activate pending clients one by one, PUT {'is_active': True} http://localhost:8000/api/v1.0/accounts/pending/{id}
+6. 
+Menegers can get all closed clients, GET http://localhost:8000/api/v1.0/accounts/closed/
+7.
+Menegers can delete all closed clients, DELETE http://localhost:8000/api/v1.0/accounts/closed/{id}
+8.
+When clients singin, menegers get email notification(like "You have new accounts that need activate")
+9.
+When menegers activate client account, client get email notification(like "Your account is activated")
+10.
+When menegers delete client account, client get email notification(like "Your account was deleted")
+11.
+You can create menegers in admin menu (as superuser) http://localhost:8000/admin/

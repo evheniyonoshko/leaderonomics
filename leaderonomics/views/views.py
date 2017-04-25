@@ -52,7 +52,7 @@ class Singin(FormView):
             meneger_emails = [meneger.email for meneger in menegers]
             send_mail(
                 'Account created',
-                'You have new account that need activate',
+                'You have new accounts that need activate',
                 'sender@example.com',
                 meneger_emails,
                 fail_silently=False,
