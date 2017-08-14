@@ -16,6 +16,10 @@ from leaderonomics.forms import UserForm
 
 
 def base(request):
+    '''
+    Base url, when you get 'http://localhost:8000/' 
+    you will redirected to 'http://localhost:8000/api/v1.0/accounts/client/profile/'
+    '''
     return redirect('/api/v1.0/accounts/client/profile/')
 
 def my_password_change(request):
@@ -35,8 +39,14 @@ def account_delete(request):
 
 
 class Singin(FormView):
+    '''
+    Singin FormView with GET and POST methods
+    '''
     template_name = 'rest_framework/singin.html'
     def post(self, request):
+        '''
+        POST method for singin view
+        '''
         data = {
             'email': request.POST.get('email'),
             'password': request.POST.get('password'),
@@ -53,9 +63,9 @@ class Singin(FormView):
             send_mail(
                 'Account created',
                 'You have new accounts that need activate',
-                'sender@example.com',
+                'yevhen.didi@gmail.com',
                 meneger_emails,
-                fail_silently=False,
+                fail_silently = False,
             )
             return HttpResponseRedirect(resolve_url(SINGIN_REDIRECT_URL))
         else:
@@ -79,6 +89,9 @@ class Singin(FormView):
         return self.render_to_response(self.get_context_data(form=form))
 
 class UserView(generics.ListAPIView):
+    '''
+    User list view
+    '''
     serializer_class = AuthenticatedUserSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
@@ -87,12 +100,18 @@ class UserView(generics.ListAPIView):
 
 
 class PendingMenegersView(generics.ListAPIView):
+    '''
+    List view of pending users
+    '''
     queryset = User.objects.filter(is_active=False, is_closed=False)
     serializer_class = PendingMenegersSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
 
 class PendingMenegersDatailView(generics.RetrieveUpdateAPIView):
+    '''
+    List view of pending user with PUT method for activate user
+    '''
     queryset = User.objects.filter(is_active=False, is_closed=False)
     serializer_class = PendingMenegersSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
@@ -109,20 +128,26 @@ class PendingMenegersDatailView(generics.RetrieveUpdateAPIView):
         send_mail(
             'Account activate',
             message,
-            'sender@example.com',
+            'yevhen.didi@gmail.com',
             [obj.email],
-            fail_silently=False,
+            fail_silently = False,
         )
         return self.update(request, *args, **kwargs)
 
 
 class CloseAccountView(generics.ListAPIView):
+    '''
+    View for account list view
+    '''
     queryset = User.objects.filter(is_closed=True)
     serializer_class = CloseAccountsSerializer
     permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
 
 
 class CloseAccountDatailView(generics.RetrieveDestroyAPIView):
+    '''
+    View for delete account
+    '''
     queryset = User.objects.filter(is_closed=True)
     serializer_class = CloseAccountsSerializer
     permission_classes = permission_classes = (permissions.IsAuthenticated, IsOwnerOrReadOnly)
@@ -135,8 +160,8 @@ class CloseAccountDatailView(generics.RetrieveDestroyAPIView):
         send_mail(
             'Account delete',
             'Your account was deleted',
-            'sender@example.com',
+            'yevhen.didi@gmail.com',
             [obj.email],
-            fail_silently=False,
+            fail_silently = False,
         )
         return self.destroy(request, *args, **kwargs)
