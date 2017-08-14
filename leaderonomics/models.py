@@ -4,17 +4,19 @@ from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth import models as auth_models
 from django.contrib.postgres.fields import ArrayField
+
 from sorl.thumbnail import ImageField
 from solo.models import SingletonModel
 
 from leaderonomics.tools import uploads
-from lib import country_list
 
+from lib import country_list
 
 __author__ = 'Yevhenii Onoshko'
 
 COUNTRY = list(country_list.generate_country_list())
 SEX = [('Male', 'Male'), ('Female', 'Female')]
+
 
 class UserManager(auth_models.BaseUserManager):
     """

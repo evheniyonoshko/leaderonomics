@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
+
 import datetime
+
 from django import forms
-from leaderonomics.models import User
+
 from leaderonomics import settings
+from leaderonomics.models import User
+
 
 __author__ = 'Yevhenii Onoshko'
 

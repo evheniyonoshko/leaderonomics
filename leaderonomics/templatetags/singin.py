@@ -3,6 +3,8 @@ from django.utils.html import escape, format_html
 from django.utils.safestring import mark_safe
 from django.core.urlresolvers import NoReverseMatch, reverse
 
+__author__ = 'Yevhenii Onoshko'
+
 
 register = template.Library()
 

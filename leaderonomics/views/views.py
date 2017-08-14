@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.views import password_change
 from django.shortcuts import render, resolve_url, redirect
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
 from django.core.mail import send_mail
+
 from rest_framework import generics, permissions
 
 from leaderonomics.settings import SINGIN_REDIRECT_URL
@@ -43,6 +45,7 @@ class Singin(FormView):
     Singin FormView with GET and POST methods
     '''
     template_name = 'rest_framework/singin.html'
+
     def post(self, request):
         '''
         POST method for singin view
@@ -69,7 +72,7 @@ class Singin(FormView):
             )
             return HttpResponseRedirect(resolve_url(SINGIN_REDIRECT_URL))
         else:
-            print('INVALID')
+            print('INVALID', form.errors)
             form = UserForm(data)
             context = self.get_context_data(**{
                 'form': form

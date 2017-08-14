@@ -9,10 +9,13 @@ To activate your custom menu add the following to your settings.py::
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from admin_tools.menu import items, Menu
 # from django.contrib.staticfiles.templatetags.staticfiles import static
 from leaderonomics.models import User
 
-from admin_tools.menu import items, Menu
+
+
+__author__ = 'Yevhenii Onoshko'
 
 
 class CustomMenu(Menu):

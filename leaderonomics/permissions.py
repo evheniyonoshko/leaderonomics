@@ -1,6 +1,10 @@
+# -*- coding: utf-8 -*-
+
 from rest_framework import permissions
+
 from leaderonomics.models import User
 
+__author__ = 'Yevhenii Onoshko'
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
     """

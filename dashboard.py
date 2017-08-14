@@ -16,6 +16,8 @@ from django.core.urlresolvers import reverse
 from admin_tools.dashboard import modules, Dashboard, AppIndexDashboard
 from admin_tools.utils import get_admin_site_name
 
+__author__ = 'Yevhenii Onoshko'
+
 
 class CustomIndexDashboard(Dashboard):
     """

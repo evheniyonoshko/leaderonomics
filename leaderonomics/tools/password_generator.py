@@ -2,6 +2,8 @@
 from os import urandom
 from random import choice
 
+__author__ = 'Yevhenii Onoshko'
+
 
 char_set = {'small': 'abcdefghijklmnopqrstuvwxyz',
              'nums': '0123456789',
