@@ -1,3 +1,34 @@
+This is a simple tutorial for this project
+
+At first clone this project to your local machine git clone https://github.com/evheniyonoshko/leaderonomics.git
+
+Than go to the project dir ('cd leaderonomics'), create virtualenv, and install requirements.txt ("pip install -r requirements.txt")
+
+Then create postgresql database and put database settings to settings.py of this project:
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'db_name',
+        'USER': 'db_user',
+        'PASSWORD': 'user_password',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}
+
+And you need also put your smpt settings in settings.py file, if you does not changed it, your email notification will not work:
+
+DEFAULT_FROM_EMAIL = 'server_email' # need be changed
+SERVER_EMAIL = 'server_email' # need be changed
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'server_email' # need be changed
+EMAIL_HOST_PASSWORD = 'email_password' # need be changed
+
+All endpoints:
+
 1. 
 For singin, you need POST singin data(email, password, first_name, last_name, passport_number)
 to url http://localhost:8000/api-auth/singin/
